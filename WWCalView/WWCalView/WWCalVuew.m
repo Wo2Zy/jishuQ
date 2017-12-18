@@ -130,14 +130,35 @@
                 }else if ([[weakSelf.dataArray objectAtIndex:idx - 1] isEqualToString:@"-"]){
                     weakSelf.aaa -= [obj doubleValue];
                 }else if ([[weakSelf.dataArray objectAtIndex:idx - 1] isEqualToString:@"*"]){
-                    weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
-                    weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] * [obj doubleValue]);
+                    if (idx - 3 > 0) {
+                        if ([weakSelf.dataArray[idx - 3] isEqualToString:@"+"]) {
+                            weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
+                            weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] * [obj doubleValue]);
+                        }else{
+                            weakSelf.aaa += [weakSelf.dataArray[idx - 2] doubleValue];
+                            weakSelf.aaa -= ([weakSelf.dataArray[idx - 2] doubleValue] * [obj doubleValue]);
+                        }
+                    }else{
+                        weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
+                        weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] * [obj doubleValue]);
+                    }
                 }else{
-                    weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
-                    weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] / [obj doubleValue]);
+                    if (idx - 3 > 0) {
+                        if ([weakSelf.dataArray[idx - 3] isEqualToString:@"+"]) {
+                            weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
+                            weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] / [obj doubleValue]);
+                        }else{
+                            weakSelf.aaa += [weakSelf.dataArray[idx - 2] doubleValue];
+                            weakSelf.aaa -= ([weakSelf.dataArray[idx - 2] doubleValue] / [obj doubleValue]);
+                        }
+                    }else{
+                        weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
+                        weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] / [obj doubleValue]);
+                    }
                 }
             }
         }
+        NSLog(@"%f",weakSelf.aaa);
         [weakSelf performSelectorOnMainThread:@selector(change) withObject:nil waitUntilDone:YES];
     }];
 }
