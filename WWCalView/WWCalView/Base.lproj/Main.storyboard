@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hQx-Im-uii"/>
+                        <viewControllerLayoutGuide type="bottom" id="YJu-ri-e39"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UJg-pu-wfi">
+                                <rect key="frame" x="0.0" y="20" width="375" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="en2-Ff-JCm"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="t8b-h7-Rlp"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lj-xo-due">
+                                <rect key="frame" x="0.0" y="50" width="375" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="9FX-JZ-Ck7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TpQ-lw-IQt" customClass="WWCalVuew">
+                                <rect key="frame" x="0.0" y="100" width="375" height="567"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="UJg-pu-wfi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="32R-ak-cDs"/>
+                            <constraint firstAttribute="trailing" secondItem="TpQ-lw-IQt" secondAttribute="trailing" id="8Hv-yI-B7g"/>
+                            <constraint firstItem="1lj-xo-due" firstAttribute="top" secondItem="UJg-pu-wfi" secondAttribute="bottom" id="EXu-nB-6Z3"/>
+                            <constraint firstAttribute="trailing" secondItem="1lj-xo-due" secondAttribute="trailing" id="EkT-aW-UpU"/>
+                            <constraint firstItem="UJg-pu-wfi" firstAttribute="top" secondItem="hQx-Im-uii" secondAttribute="bottom" id="Hgz-YK-4Mi"/>
+                            <constraint firstItem="TpQ-lw-IQt" firstAttribute="top" secondItem="1lj-xo-due" secondAttribute="bottom" id="VVw-hT-COb"/>
+                            <constraint firstItem="YJu-ri-e39" firstAttribute="top" secondItem="TpQ-lw-IQt" secondAttribute="bottom" id="dvo-F1-55x"/>
+                            <constraint firstItem="TpQ-lw-IQt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="jJx-yf-NBH"/>
+                            <constraint firstAttribute="trailing" secondItem="UJg-pu-wfi" secondAttribute="trailing" id="lnC-Un-vqz"/>
+                            <constraint firstItem="1lj-xo-due" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="q7z-nR-yvV"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="label" destination="1lj-xo-due" id="C3d-s7-MRP"/>
+                        <outlet property="textFiled" destination="UJg-pu-wfi" id="i3A-Pc-lce"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-65" y="-196"/>
+        </scene>
+    </scenes>
+</document>
