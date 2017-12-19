@@ -120,47 +120,126 @@
         }
     }
     __weak typeof(self) weakSelf = self;
-    [self.dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSMutableArray *dattArray = [[NSMutableArray alloc]initWithArray:self.dataArray];
+//    for (int idx = 0; idx<self.dataArray.count; idx++) {
+//        if ([self.dataArray[idx] isEqualToString:@"*"] || [self.dataArray[idx] isEqualToString:@"/"]) {
+//            double str ;
+//            if (idx != self.dataArray.count - 1) {
+//                if ([self.dataArray[idx] isEqualToString:@"*"]) {
+//                    str = [self.dataArray[idx - 1] doubleValue]* [self.dataArray[idx + 1] doubleValue];
+//                }else{
+//                    str = [self.dataArray[idx - 1] doubleValue] / [dattArray[idx + 1] doubleValue];
+//                }
+////                [dattArray addObject:<#(nonnull id)#>]
+//            }
+//        }
+//    }
+    NSMutableArray *thisArray = [NSMutableArray new];
+    [dattArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isEqualToString:@"*"] || [obj isEqualToString:@"/"]) {
+            double str ;
+            if (idx != dattArray.count - 1) {
+                if ([obj isEqualToString:@"*"]) {
+                    str = [thisArray[thisArray.count - 1] doubleValue] * [dattArray[idx + 1] doubleValue];
+                }else{
+                    str = [thisArray[thisArray.count - 1] doubleValue] / [dattArray[idx + 1] doubleValue];
+                }
+                [thisArray removeObjectAtIndex:thisArray.count -1];
+                [thisArray addObject:[NSString stringWithFormat:@"%f",str]];
+            }
+        }else{
+            if (thisArray.count ==0) {
+              [thisArray addObject:obj];
+            }else if ([self isPureFloat:thisArray[thisArray.count -1]] || [self isPureInt:thisArray[thisArray.count -1]]){
+                if ([self isPureFloat:obj] || [self isPureInt:obj]) {
+                    
+                }else{
+                    [thisArray addObject:obj];
+                }
+            }else{
+                [thisArray addObject:obj];
+            }
+        }
+    }];
+    [thisArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx == 0) {
             weakSelf.aaa = [obj doubleValue];
         }else{
             if (idx % 2 == 0) {
-                if ([[weakSelf.dataArray objectAtIndex:idx - 1] isEqualToString:@"+"]) {
+                if ([[thisArray objectAtIndex: idx - 1] isEqualToString:@"+"]) {
                     weakSelf.aaa += [obj doubleValue];
-                }else if ([[weakSelf.dataArray objectAtIndex:idx - 1] isEqualToString:@"-"]){
-                    weakSelf.aaa -= [obj doubleValue];
-                }else if ([[weakSelf.dataArray objectAtIndex:idx - 1] isEqualToString:@"*"]){
-                    if (idx - 3 > 0) {
-                        if ([weakSelf.dataArray[idx - 3] isEqualToString:@"+"]) {
-                            weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
-                            weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] * [obj doubleValue]);
-                        }else{
-                            weakSelf.aaa += [weakSelf.dataArray[idx - 2] doubleValue];
-                            weakSelf.aaa -= ([weakSelf.dataArray[idx - 2] doubleValue] * [obj doubleValue]);
-                        }
-                    }else{
-                        weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
-                        weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] * [obj doubleValue]);
-                    }
                 }else{
-                    if (idx - 3 > 0) {
-                        if ([weakSelf.dataArray[idx - 3] isEqualToString:@"+"]) {
-                            weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
-                            weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] / [obj doubleValue]);
-                        }else{
-                            weakSelf.aaa += [weakSelf.dataArray[idx - 2] doubleValue];
-                            weakSelf.aaa -= ([weakSelf.dataArray[idx - 2] doubleValue] / [obj doubleValue]);
-                        }
-                    }else{
-                        weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
-                        weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] / [obj doubleValue]);
-                    }
+                    weakSelf.aaa -= [obj doubleValue];
                 }
             }
         }
-        NSLog(@"%f",weakSelf.aaa);
-        [weakSelf performSelectorOnMainThread:@selector(change) withObject:nil waitUntilDone:YES];
     }];
+    [self change];
+//    [dattArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if (idx == 0) {
+//            weakSelf.aaa = [obj doubleValue];
+//        }else{
+//            if (idx % 2 == 0) {
+//                if ([[weakSelf.dataArray objectAtIndex:idx - 1] isEqualToString:@"+"]) {
+//                    weakSelf.aaa += [obj doubleValue];
+//                 }else if ([[weakSelf.dataArray objectAtIndex:idx - 1] isEqualToString:@"-"]){
+//                    weakSelf.aaa -= [obj doubleValue];
+//                }
+//            }
+//        }
+//    }];
+//    [self.dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if (idx == 0) {
+//            weakSelf.aaa = [obj doubleValue];
+//        }else{
+//            if (idx % 2 == 0) {
+//                if ([[weakSelf.dataArray objectAtIndex:idx - 1] isEqualToString:@"+"]) {
+//                    weakSelf.aaa += [obj doubleValue];
+//                }else if ([[weakSelf.dataArray objectAtIndex:idx - 1] isEqualToString:@"-"]){
+//                    weakSelf.aaa -= [obj doubleValue];
+//                }else if ([[weakSelf.dataArray objectAtIndex:idx - 1] isEqualToString:@"*"]){
+//                    if (idx - 3 > 0) {
+//                        if ([weakSelf.dataArray[idx - 3] isEqualToString:@"+"]) {
+//                            weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
+//                            weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] * [obj doubleValue]);
+//                        }else{
+//                            weakSelf.aaa += [weakSelf.dataArray[idx - 2] doubleValue];
+//                            weakSelf.aaa -= ([weakSelf.dataArray[idx - 2] doubleValue] * [obj doubleValue]);
+//                        }
+//                    }else{
+//                        weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
+//                        weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] * [obj doubleValue]);
+//                    }
+//                }else{
+//                    if (idx - 3 > 0) {
+//                        if ([weakSelf.dataArray[idx - 3] isEqualToString:@"+"]) {
+//                            weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
+//                            weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] / [obj doubleValue]);
+//                        }else{
+//                            weakSelf.aaa += [weakSelf.dataArray[idx - 2] doubleValue];
+//                            weakSelf.aaa -= ([weakSelf.dataArray[idx - 2] doubleValue] / [obj doubleValue]);
+//                        }
+//                    }else{
+//                        weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
+//                        weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] / [obj doubleValue]);
+//                    }
+//                }
+//            }
+//        }
+//        [weakSelf performSelectorOnMainThread:@selector(change) withObject:nil waitUntilDone:YES];
+//    }];
+}
+//判断是否为浮点形：
+- (BOOL)isPureFloat:(NSString*)string{
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    float val;
+    return[scan scanFloat:&val] && [scan isAtEnd];
+}
+// 是否为整形
+- (BOOL)isPureInt:(NSString*)string{
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    int val;
+    return[scan scanInt:&val] && [scan isAtEnd];
 }
 -(void)change{
     [[NSNotificationCenter defaultCenter]postNotificationName:@"love" object:nil userInfo:@{@"question":[self.dataArray componentsJoinedByString:@""],@"answer":self.dataArray.count == 0 ? @"0.00" : [NSString stringWithFormat:@"%.2f",self.aaa]}];
