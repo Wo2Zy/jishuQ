@@ -15,6 +15,13 @@
 -(void)awakeFromNib{
     [super awakeFromNib];
 }
+-(instancetype)initWithFrame:(CGRect)frame{
+    if (self = [super initWithFrame:frame]) {
+        [[[NSBundle mainBundle]loadNibNamed:@"WWCalVuew" owner:self options:nil]lastObject];
+        [self addSubview:self.bgView];
+    }
+    return self;
+}
 -(instancetype)initWithCoder:(NSCoder *)aDecoder{
     if (self = [super initWithCoder:aDecoder]) {
         [[[NSBundle mainBundle]loadNibNamed:@"WWCalVuew" owner:self options:nil] lastObject];
@@ -175,59 +182,6 @@
         }
     }];
     [self change];
-//    [dattArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        if (idx == 0) {
-//            weakSelf.aaa = [obj doubleValue];
-//        }else{
-//            if (idx % 2 == 0) {
-//                if ([[weakSelf.dataArray objectAtIndex:idx - 1] isEqualToString:@"+"]) {
-//                    weakSelf.aaa += [obj doubleValue];
-//                 }else if ([[weakSelf.dataArray objectAtIndex:idx - 1] isEqualToString:@"-"]){
-//                    weakSelf.aaa -= [obj doubleValue];
-//                }
-//            }
-//        }
-//    }];
-//    [self.dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        if (idx == 0) {
-//            weakSelf.aaa = [obj doubleValue];
-//        }else{
-//            if (idx % 2 == 0) {
-//                if ([[weakSelf.dataArray objectAtIndex:idx - 1] isEqualToString:@"+"]) {
-//                    weakSelf.aaa += [obj doubleValue];
-//                }else if ([[weakSelf.dataArray objectAtIndex:idx - 1] isEqualToString:@"-"]){
-//                    weakSelf.aaa -= [obj doubleValue];
-//                }else if ([[weakSelf.dataArray objectAtIndex:idx - 1] isEqualToString:@"*"]){
-//                    if (idx - 3 > 0) {
-//                        if ([weakSelf.dataArray[idx - 3] isEqualToString:@"+"]) {
-//                            weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
-//                            weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] * [obj doubleValue]);
-//                        }else{
-//                            weakSelf.aaa += [weakSelf.dataArray[idx - 2] doubleValue];
-//                            weakSelf.aaa -= ([weakSelf.dataArray[idx - 2] doubleValue] * [obj doubleValue]);
-//                        }
-//                    }else{
-//                        weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
-//                        weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] * [obj doubleValue]);
-//                    }
-//                }else{
-//                    if (idx - 3 > 0) {
-//                        if ([weakSelf.dataArray[idx - 3] isEqualToString:@"+"]) {
-//                            weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
-//                            weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] / [obj doubleValue]);
-//                        }else{
-//                            weakSelf.aaa += [weakSelf.dataArray[idx - 2] doubleValue];
-//                            weakSelf.aaa -= ([weakSelf.dataArray[idx - 2] doubleValue] / [obj doubleValue]);
-//                        }
-//                    }else{
-//                        weakSelf.aaa -= [weakSelf.dataArray[idx - 2] doubleValue];
-//                        weakSelf.aaa += ([weakSelf.dataArray[idx - 2] doubleValue] / [obj doubleValue]);
-//                    }
-//                }
-//            }
-//        }
-//        [weakSelf performSelectorOnMainThread:@selector(change) withObject:nil waitUntilDone:YES];
-//    }];
 }
 //判断是否为浮点形：
 - (BOOL)isPureFloat:(NSString*)string{
